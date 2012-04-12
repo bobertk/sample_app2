@@ -1,5 +1,6 @@
 SampleApp2::Application.routes.draw do
-  resources :users   # add RESTful Users resource
+  resources :users   # we add RESTful Users resource
+  resources :sessions, only: [:new, :create, :destroy] # limit to these
 
 	root to: 'static_pages#home' 
 
@@ -9,7 +10,7 @@ SampleApp2::Application.routes.draw do
   
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  match '/signout', to: 'sessions#destroy', via: :delete  # via HTTP DELETE
 	
   
 
