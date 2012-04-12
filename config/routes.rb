@@ -1,5 +1,5 @@
 SampleApp2::Application.routes.draw do
-  get "users/new"
+  resources :users   # add RESTful Users resource
 
 	root to: 'static_pages#home' 
 
