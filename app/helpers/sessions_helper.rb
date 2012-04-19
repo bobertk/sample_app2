@@ -29,8 +29,11 @@ module SessionsHelper
     clear_return_to
   end
 
-  def store_location
-    session[:return_to] = request.fullpath
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_path, notice: "Please sign in."
+    end
   end
 
   def sign_out
@@ -38,6 +41,10 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
+  def store_location
+    session[:return_to] = request.fullpath
+  end
+  
   private
 
     def user_from_remember_token

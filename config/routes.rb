@@ -1,6 +1,7 @@
 SampleApp2::Application.routes.draw do
   resources :users   # we add RESTful Users resource
-  resources :sessions, only: [:new, :create, :destroy] # limit to these
+  resources :sessions, only: [:new, :create, :destroy] # GET. POST, DELETE
+  resources :microposts, only: [:create, :destroy]  # POST, DELETE 
 	 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
