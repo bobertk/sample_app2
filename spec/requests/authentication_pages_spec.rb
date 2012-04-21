@@ -87,6 +87,16 @@ describe "Authentication" do
           # w direct HTTP requests, we get access to response object
           specify { response.should redirect_to(signin_path) }
         end
+
+        describe "visiting the following page" do
+          before { visit following_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "visiting the followers page" do
+          before { visit followers_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
       end
           
       describe "in the Microposts controller" do
@@ -105,7 +115,20 @@ describe "Authentication" do
         end
       end
       
+      describe "in the Relationships controller" do
+        describe "submitting to the create action" do
+          before { post relationships_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete relationship_path(1) }
+          specify { response.should redirect_to(signin_path) }          
+        end
+      end
+
     end
+    
     # for signed in but
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }

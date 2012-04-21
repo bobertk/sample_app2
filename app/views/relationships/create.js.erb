@@ -1,0 +1,4 @@
+// replace follow_form w rendered js (use escape_javascript function) 
+
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>")
+$("#followers").html('<%= @user.followers.count %>')
